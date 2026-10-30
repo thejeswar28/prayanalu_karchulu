@@ -15,3 +15,6 @@ Notes:
 - This creates a debug APK, suitable for personal testing, not Play Store publishing.
 - Expenses are stored locally in app WebView storage. Use the app's backup/export feature regularly.
 - The app has no account sync. Clearing app data or uninstalling may remove locally stored records.
+
+
+Workflow fix (Oct 2026): uses android-actions/setup-android@v4 and explicitly installs platform-tools. The old v3 action attempted to install the retired SDK package named tools, causing the error “Failed to find package tools”.
