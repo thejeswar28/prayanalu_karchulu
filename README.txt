@@ -1,20 +1,33 @@
-Prayanalu🥳 - Karchulu😔 Android wrapper project
+Prayanalu🥳 - Karchulu😔 Android project (version 1.4)
 
-This is source code for an Android WebView app that bundles the offline HTML prototype.
-It is NOT a compiled APK.
+Changes in this update:
+- Edit existing expenses (description, amount, payer, category, date, split members).
+- Delete expenses from the expense list.
+- Download CSV report.
+- Download Excel-compatible .xls report (SpreadsheetML; opens in Microsoft Excel).
+- Android downloads are saved through the native Android bridge to Downloads/PrayanaluKarchulu.
 
-Build APK with GitHub Actions:
-1. Create a new GitHub repository using Chrome on your phone.
-2. Upload the contents of this project (including hidden .github/workflows/build-apk.yml).
-3. Push to the main branch, or open Actions -> Build Android APK -> Run workflow.
-4. Wait for the workflow to finish successfully.
-5. Open the completed workflow run, download the artifact named Prayanalu-Karchulu-APK, and extract app-debug.apk.
-6. Open the APK on your Android phone and allow installation from that source if Android asks.
+Build a new APK with GitHub Actions:
+1. Replace the files in your existing GitHub repository with the contents of this ZIP. Keep the .github/workflows/build-apk.yml path at repository root.
+2. Commit/push the changes to the main branch, or open Actions -> Build Android APK -> Run workflow.
+3. Wait for the workflow to finish successfully.
+4. Open the workflow run, download artifact Prayanalu-Karchulu-APK, and extract app-debug.apk.
+5. Install the new APK. It uses the same application ID, so it should update the existing app and preserve local data; still export a backup before updating.
 
-Notes:
-- This creates a debug APK, suitable for personal testing, not Play Store publishing.
-- Expenses are stored locally in app WebView storage. Use the app's backup/export feature regularly.
-- The app has no account sync. Clearing app data or uninstalling may remove locally stored records.
+This ZIP is source code, not a compiled APK. The workflow builds a debug APK for personal use.
+
+Version 1.2 review fixes: expense search, local date handling, exact paise split rounding, safer CSV cell escaping, and protection against deleting members who have paid historical expenses.
+
+Version 1.3: Member names are displayed in the selected language script using offline phonetic transliteration. The original saved name is preserved; switching language never overwrites stored names. Transliteration is approximate for proper names, so verify spellings.
 
 
-Workflow fix (Oct 2026): uses android-actions/setup-android@v4 and explicitly installs platform-tools. The old v3 action attempted to install the retired SDK package named tools, causing the error “Failed to find package tools”.
+Version 1.4 features:
+- Member expense history: select a member to see expenses they paid, their share in expenses, and their advance deposits.
+- Advance payments: record a member's trip advance. It is treated as a credit in the member balance and settlement (not as trip spending).
+- Custom expense splits: Equal, Percentage (must total exactly 100.00%), or Individual amounts (must total exactly the expense amount to the paise).
+- Existing v1.3 data is migrated in memory with equal split defaults and empty advance lists; existing data format remains compatible.
+
+Important: Before installing an update, export a backup from the app. This is a source project, not a compiled APK.
+
+
+Version 1.5 update: Smart Split is integrated in the existing expense form as four in-place choices: Equal, Percentage, Exact Amount, and Shares (ratio). Existing expense records remain compatible; old records default to Equal split.
